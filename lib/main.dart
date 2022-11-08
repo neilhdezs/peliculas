@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peliculas/screens/details_screen.dart';
-import 'package:peliculas/screens/home_screen.dart';
+import 'package:peliculas/screens/screens.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,6 +16,11 @@ class MyApp extends StatelessWidget {
         'home': (_) => const HomeScreen(),
         'details': (_) => const DetailsScreen(),
       },
+      theme: ThemeData.light().copyWith(
+        appBarTheme: const AppBarTheme(
+          color: Colors.indigo
+        )
+      ),
     );
   }
 }
