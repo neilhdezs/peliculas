@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart'; libreria para limpiar la caché de las imagenes
+// import 'package:flutter/services.dart'; // libreria para limpiar la caché de las imagenes
 
 class MovieSlider extends StatelessWidget {
   const MovieSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // imageCache. clear(); Por si tenemos que limpiar la caché de las imagenes
+    // imageCache. clear(); //Por si tenemos que limpiar la caché de las imagenes
     return Container(
       width: double.infinity,
       height: 254,
@@ -50,7 +50,7 @@ class _MoviePoster extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: const FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage('https://via.placeholder.com/300x400'),
+                image: NetworkImage('https://via.placeholder.com/300x400.jpg'),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
