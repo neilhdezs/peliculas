@@ -10,9 +10,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    final moviesProvider = Provider.of<MoviesProvider>(context);
+    // PROVIDER El listener permite que se repinten, si es un metodo normalente es false, por que no se pueden redibujar
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: true);
 
     print(moviesProvider.onDisplayMovies);
+
+
 
     return Scaffold(
       appBar: AppBar(
