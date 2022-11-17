@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     // PROVIDER El listener permite que se repinten, si es un metodo normalente es false, por que no se pueden redibujar
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: true);
 
+
     print(moviesProvider.onDisplayMovies);
 
 
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
 
             CardSwiper(movies: moviesProvider.onDisplayMovies),
 
-            MovieSlider(),
+            MovieSlider( movies: moviesProvider.popularMovies, title: 'Populares'),
             
           ],
         ),
