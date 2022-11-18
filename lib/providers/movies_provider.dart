@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:peliculas/models/now_playin_responses.dart';
 import 'package:peliculas/models/popular-response.dart';
 
+import '../models/credits_response.dart';
 import '../models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
@@ -14,7 +15,9 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
-  int popularPage = 0;
+  Map<int, List<Cast>> movieCast = {};
+
+  int _popularPage = 0;
 
   MoviesProvider() {
     print('MoviesProvider inicializado');
@@ -47,10 +50,9 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getPopularMovies() async {
+    _popularPage++;
 
-    popularPage++;
-
-    final jsonData = await _getJsonData('3/movie/now_playing', popularPage);
+    final jsonData = await _getJsonData('3/movie/popular', _popularPage);
 
     final nowPopularResponse = PopularResponses.fromJson(jsonData);
 
@@ -61,5 +63,14 @@ class MoviesProvider extends ChangeNotifier {
     //print(nowPopularResponse.results);
 
     notifyListeners();
+  }
+
+  Future<List<Cast>> getMovieCast(int movieId) async {
+    final jsonData = await _getJsonData('3/movie/$movieId/credits');
+    final creditsResponse = CreditResponse.fromJson(jsonData);
+
+    movieCast[movieId] = creditsResponse.cast;
+
+    return creditsResponse.cast;
   }
 }

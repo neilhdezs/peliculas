@@ -1,23 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/providers/movies_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:peliculas/models/models.dart';
+
+
 
 class CastingCards extends StatelessWidget {
-  const CastingCards({super.key});
+  final int movieId;
+  CastingCards({super.key, required this.movieId});
 
   @override
   Widget build(BuildContext context) {
+
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+
+    return FutureBuilder(
+      future: moviesProvider.getMovieCast(movieId),
+      builder: (_, AsyncSnapshot<List<Cast>> snapshot) {
+
+        if ( !snapshot.hasData )
+          return Container(
+            
+          );
+
+
+        return Container(
+          margin: const EdgeInsets.only( bottom: 30 ),
+          width: double.infinity,
+          height: 180,
+          child: ListView.builder(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal, 
+            itemBuilder: (BuildContext context, int index) { 
+
+            },
+          ),
+        ) ;
+      },
+    );
+
     return Container(
-      margin: const EdgeInsets.only( bottom: 30 ),
+      margin: const EdgeInsets.only(bottom: 30),
       width: double.infinity,
       height: 180,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: ( _ , int index) => const _CastCard()
-      ),
+          scrollDirection: Axis.horizontal,
+          itemCount: 10,
+          itemBuilder: (_, int index) => const _CastCard()),
     );
   }
 }
-
 
 class _CastCard extends StatelessWidget {
   const _CastCard({super.key});
@@ -30,7 +62,6 @@ class _CastCard extends StatelessWidget {
       height: 100,
       child: Column(
         children: [
-
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: const FadeInImage(
@@ -41,14 +72,12 @@ class _CastCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-
           const Text(
             'actor.name asdfsadf asdfas',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           )
-
         ],
       ),
     );
