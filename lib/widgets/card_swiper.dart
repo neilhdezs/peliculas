@@ -17,21 +17,6 @@ class _CardSwiperState extends State<CardSwiper> {
   final SwiperController swiperController = SwiperController();
 
   @override
-  void initState() {
-    super.initState();
-    swiperController.addListener(() {
-      print(swiperController.index);
-      print(widget.movies.length);
-
-      if (swiperController.index! >= widget.movies.length - 2) {
-        print("obtener la siguiente pagina");
-
-        widget.onNextPage();
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
@@ -52,6 +37,14 @@ class _CardSwiperState extends State<CardSwiper> {
         layout: SwiperLayout.STACK,
         itemWidth: size.width * 0.6,
         itemHeight: size.width * 0.9,
+        loop: false,
+        onIndexChanged: (int index) {
+          print(index);
+          if (index == widget.movies.length - 1) {
+            widget.onNextPage();
+            setState(() {});
+          }
+        },
         itemBuilder: (_, int index) {
           final Movie movie = widget.movies[index];
 

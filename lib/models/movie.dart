@@ -38,7 +38,7 @@ class Movie {
       return 'https://image.tmdb.org/t/p/w500${posterPath}';
     }
 
-    return 'https://i.stack.imgur.com/GNhx0.png';
+    return 'https://cdn.pixabay.com/photo/2017/06/02/19/12/broken-link-2367103_960_720.png';
   }
 
   get backDropPath {
@@ -46,7 +46,7 @@ class Movie {
       return 'https://image.tmdb.org/t/p/w500${backdropPath}';
     }
 
-    return 'https://i.stack.imgur.com/GNhx0.png';
+    return 'https://cdn.pixabay.com/photo/2017/06/02/19/12/broken-link-2367103_960_720.png';
   }
 
   factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
