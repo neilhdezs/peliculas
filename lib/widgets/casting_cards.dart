@@ -9,6 +9,7 @@ class CastingCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
 
     return FutureBuilder(
@@ -16,8 +17,10 @@ class CastingCards extends StatelessWidget {
       builder: (_, AsyncSnapshot<List<Cast>> snapshot) {
         if (!snapshot.hasData) {
           return Container(
-            constraints: const BoxConstraints(maxWidth: 150),
-            height: 150,
+            constraints: const BoxConstraints(maxWidth: 50),
+            margin: EdgeInsetsDirectional.only(start: (size.width/2)-25, end: (size.width/2)-25),
+            width: 50,
+            height: 50,
             child: const CircularProgressIndicator(),
           );
         }
@@ -31,9 +34,11 @@ class CastingCards extends StatelessWidget {
           child: ListView.builder(
             itemCount: cast.length,
             scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) => _CastCard(actor: cast[index]),
+            itemBuilder: (BuildContext context, int index) =>
+                _CastCard(actor: cast[index]),
           ),
         );
+
       },
     );
   }

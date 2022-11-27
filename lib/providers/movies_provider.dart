@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:peliculas/models/now_playin_responses.dart';
 import 'package:peliculas/models/popular-response.dart';
+import 'package:peliculas/models/search_movie.dart';
 
 import '../models/credits_response.dart';
 import '../models/models.dart';
@@ -16,9 +17,11 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
   Map<int, List<Cast>> movieCast = {};
+  List<Movie> searchMovies = [];
 
   int _popularPage = 0;
   int _displayPage = 0;
+  String ultimaQuery = '';
 
   MoviesProvider() {
     print('MoviesProvider inicializado');
@@ -27,7 +30,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<String> _getJsonData(String endpoint, [int page = 1]) async {
-    var url = Uri.https(_baseUrl, endpoint, {
+    final url = Uri.https(_baseUrl, endpoint, {
       'api_key': _apiKey,
       'language': _language,
       'page': '$page',
@@ -76,5 +79,18 @@ class MoviesProvider extends ChangeNotifier {
     movieCast[movieId] = creditsResponse.cast;
 
     return creditsResponse.cast;
+  }
+
+  Future<List<Movie>> searchMovie(String query) async {
+    if (query != ultimaQuery) {
+      var url = Uri.https(
+          _baseUrl, '3/search/movie', {'api_key': _apiKey, 'query': query});
+
+      final response = await http.get(url);
+      final searchMovie = SearchMovie.fromJson(response.body);
+      searchMovies = searchMovie.results;
+    }
+
+    return searchMovies;
   }
 }
